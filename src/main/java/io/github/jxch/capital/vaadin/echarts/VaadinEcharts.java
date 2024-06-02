@@ -1,5 +1,6 @@
 package io.github.jxch.capital.vaadin.echarts;
 
+import com.vaadin.flow.component.DetachEvent;
 import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.html.Div;
 import elemental.json.Json;
@@ -84,6 +85,18 @@ public class VaadinEcharts extends Div {
             });
         }
         """, id, option, ECHARTS_CDN));
+    }
+
+    @Override
+    protected void onDetach(DetachEvent detachEvent) {
+        super.onDetach(detachEvent);
+        getElement().executeJs("""
+            var chart = window.chartInstances['%1$s'];
+            if (chart) {
+                chart.dispose();
+                window.chartInstances['%1$s'] = undefined;
+            }
+        """, id);
     }
 
 }
