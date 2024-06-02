@@ -31,7 +31,7 @@ public class OHLCEcharts extends Div {
         vaadinEcharts.setOption(option);
     }
 
-    public void addMainIndicator(String name, String color, Function<List<?>, List<?>> indicator) {
+    public <T> void addMainIndicator(String name, String color, Function<List<T>, List<?>> indicator, Class<T> clazz) {
         String standardJson = JsonUtil.standard(String.format("""
                 {
                    name: '%s',
@@ -44,7 +44,7 @@ public class OHLCEcharts extends Div {
                 }
                 """, name, color));
         JsonObject jsonObject = Json.parse(standardJson);
-        JsonValue jsonValue = Json.instance().parse(new Gson().toJson(indicator.apply(data)));
+        JsonValue jsonValue = Json.instance().parse(new Gson().toJson(indicator.apply(data.stream().map(clazz::cast).toList())));
         jsonObject.put("data", jsonValue);
         addSeries(jsonObject.toJson());
     }
