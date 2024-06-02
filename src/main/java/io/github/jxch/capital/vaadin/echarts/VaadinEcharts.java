@@ -6,6 +6,7 @@ import com.vaadin.flow.component.html.Div;
 import elemental.json.Json;
 import elemental.json.JsonObject;
 import io.github.jxch.capital.vaadin.echarts.config.VaadinEchartsAutoConfig;
+import lombok.Getter;
 
 import java.util.Objects;
 import java.util.UUID;
@@ -14,6 +15,8 @@ import java.util.UUID;
 public class VaadinEcharts extends Div {
     private static String ECHARTS_CDN = null;
     private final String id = UUID.randomUUID().toString();
+    @Getter
+    private JsonObject option;
 
     public VaadinEcharts() {
         this(800, 600);
@@ -41,6 +44,7 @@ public class VaadinEcharts extends Div {
     }
 
     public void setOption(JsonObject option) {
+        this.option = option;
         getElement().executeJs(String.format("""
                 if (!window.chartInstances) {
                     window.chartInstances = {};
@@ -90,7 +94,7 @@ public class VaadinEcharts extends Div {
                         initializeChart('%1$s', %2$s);
                     });
                 }
-                """, id, option, ECHARTS_CDN));
+                """, id, option.toJson().replaceAll("(?s)\"\\$\\$(.*?)\\$\\$\"", "$1").replaceAll("\\\"", "'"), ECHARTS_CDN));
     }
 
     @Override
