@@ -1,5 +1,5 @@
 # capital-vaadin-echarts-spring-boot-starter
-vaadin集成echarts
+vaadin 集成 echarts, TradingView
 
 ---
 
