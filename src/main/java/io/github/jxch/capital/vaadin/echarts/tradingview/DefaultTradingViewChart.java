@@ -37,7 +37,11 @@ public class DefaultTradingViewChart extends Div {
             """);
 
     public DefaultTradingViewChart() {
-        tradingViewChart = new TradingViewChart();
+        this(800, 600);
+    }
+
+    public DefaultTradingViewChart(int width, int height) {
+        tradingViewChart = new TradingViewChart(width, height);
         tradingViewChart.setOption(option);
         add(tradingViewChart);
     }

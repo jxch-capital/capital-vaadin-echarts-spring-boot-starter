@@ -6,7 +6,7 @@
 
     <groupId>io.github.jxch</groupId>
     <artifactId>capital-vaadin-echarts-spring-boot-starter</artifactId>
-    <version>3.2.5-alpha.2.0.1</version>
+    <version>3.2.5-alpha.2.0.2</version>
     <name>capital-vaadin-echarts-spring-boot-starter</name>
     <description>Vaadin 集成 ECharts, TradingView 图表库</description>
     <url>https://github.com/jxch-capital/capital-vaadin-echarts-spring-boot-starter</url>
