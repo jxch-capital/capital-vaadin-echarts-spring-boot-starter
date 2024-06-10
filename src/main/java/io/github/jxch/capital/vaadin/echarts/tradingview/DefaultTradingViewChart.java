@@ -6,42 +6,42 @@ import elemental.json.JsonObject;
 import lombok.Getter;
 
 public class DefaultTradingViewChart extends Div {
-    private final TradingViewChart tradingViewChart;
+    private TradingViewChart tradingViewChart;
     @Getter
     private JsonObject option = Json.parse("""
                     {
                         "autosize": true,
+                        "width": "100%",
+                        "height": "100%",
+                        "popup_width": "1000",
+                        "popup_height": "650",
+                        "show_popup_button": true,
+                        "enable_publishing": false,
+                        "allow_symbol_change": true,
+                        "hide_top_toolbar": false,
+                        "hide_side_toolbar": false,
+                        "details": false,
+                        "hotlist": false,
                         "symbol": "NASDAQ:AAPL",
                         "interval": "D",
                         "timezone": "exchange",
-                        "theme": "dark",
                         "style": "1",
+                        "theme": "dark",
                         "locale": "zh_CN",
-                        "toolbar_bg": "#f1f3f6",
-                        "enable_publishing": false,
-                        "allow_symbol_change": true,
-                        "details": false,
-                        "hide_top_toolbar": false,
-                        "save_image": true,
-                        "hotlist": false,
-                        "calendar": true,
-                        "news": [
-                            "headlines"
-                        ],
-                        "show_popup_button": false,
-                        "popup_width": "1000",
-                        "popup_height": "650",
-                        "load_last_chart": true,
-                        "hide_side_toolbar": false
+                        "studies": [{
+                             "id": "MASimple@tv-basicstudies",
+                             "inputs": {"length": 20},
+                        }],
                     }
             """);
 
     public DefaultTradingViewChart() {
-        this(800, 600);
+        setHeight("100%");
+        addTradingViewChart();
     }
 
-    public DefaultTradingViewChart(int width, int height) {
-        tradingViewChart = new TradingViewChart(width, height);
+    private void addTradingViewChart() {
+        tradingViewChart = new TradingViewChart();
         tradingViewChart.setOption(option);
         add(tradingViewChart);
     }

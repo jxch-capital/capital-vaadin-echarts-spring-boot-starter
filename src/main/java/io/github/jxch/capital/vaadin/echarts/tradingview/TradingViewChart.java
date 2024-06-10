@@ -12,19 +12,13 @@ import java.util.UUID;
 @Tag("div")
 public class TradingViewChart extends Div {
     private final static String TRADING_VIEW_SRC = "https://s3.tradingview.com/tv.js";
-    private final String id = UUID.randomUUID().toString();
+    private final String id = "tv_" + UUID.randomUUID().toString().replaceAll("-", "");
     @Getter
     private JsonObject option;
 
     public TradingViewChart() {
-        this(800, 600);
-    }
-
-    public TradingViewChart(int width, int height) {
-        super();
+        setHeight("100%");
         setId(id);
-        setWidth(width + "px");
-        setHeight(height + "px");
     }
 
     public void setOption(String standardJson) {
@@ -70,7 +64,7 @@ public class TradingViewChart extends Div {
                         initializeTradingView('%1$s', %2$s);
                     });
                 }
-                """,id, option.toJson(), TRADING_VIEW_SRC, getHeight(), getWidth()));
+                """,id, this.option.toJson(), TRADING_VIEW_SRC, getHeight(), getWidth()));
     }
 
     @Override
